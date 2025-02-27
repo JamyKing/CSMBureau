@@ -1,8 +1,6 @@
 import axios from 'axios'
-// import { useCounterStore } from '../stores/counter'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-// const store = useCounterStore()
+// import { useRouter } from 'vue-router'
+// const router = useRouter()
 
 const http = axios.create({
   timeout: 1000 * 30,
@@ -28,19 +26,19 @@ const http = axios.create({
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, 未登录
     // store.logout()
-    router.push({path: '/login'})
+    // router.push({path: '/login'})
   }
   return response
 }, error => {
   return Promise.reject(error)
 })
 
-const request = (url, method, data = {}) => {
+const request = (params = {}) => {
   return new Promise((resolve, reject) => {
     http({
-      url: url,
-      method: method,
-      [method === 'GET' ? 'params' : 'data']: data
+      url: params.url,
+      method: params.method,
+      [params.method === 'GET' ? 'params' : 'data']: params.data
     }).then(res => {
       resolve(res.data)
     }).catch(err => {
