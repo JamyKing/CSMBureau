@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #E9ECEF;
+}
+a {
+  text-decoration: none;
+}
+
+ul,li,ol{
+  list-style-type: none;
+}
+
+.markdown-body img {
+  border: 1px solid #e2e2e2;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* flex布局 */
+.u-f,.u-f-rc,.u-f-auto,.u-f-jsb,.u-f-col,.u-f-cer{
+  display: flex;
+}
+.u-f-rc,.u-f-auto{
+  justify-content: center;
+}
+.u-f-auto,.u-f-cer{
+  align-items: center;
+}
+.u-f-jsb{
+  justify-content: space-between;
+}
+.u-f-col,.u-f-cer{
+  flex-direction: column;
+}

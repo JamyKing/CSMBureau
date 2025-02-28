@@ -1,5 +1,6 @@
 <template>
   <div class="u-f-col">
+    <atlas-screen />
     <el-row :gutter="20" type="flex" justify="center" style="margin: 20px 0 0 0;">
       <el-col :xl="{span: 10}" :lg="{span: 12}" :md="{span: 14}" :sm="{span: 16}" :xs="{span: 17}"
               style="background: white; padding: 10px; box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
@@ -52,7 +53,8 @@
 </template>
 
 <script setup>
-import {ref, reactive, inject, watch, computed, onMounted} from 'vue'
+import {ref, reactive, inject, watch, computed, onBeforeMount} from 'vue'
+import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
 import headImg from '@/assets/images/head.jpg'
@@ -69,8 +71,13 @@ const pageInfo = reactive({
 })
 const totalPage = ref(1)
 
-onMounted(() => {
+onBeforeMount(() => {
+  console.log('Index Mounted')
+  // TODO：1.添加分类标签 默认为primary 2.新增文章时选择标签 默认为primary
   getDataList()
+  if (store.category.length === 0) {
+    getCategoryList()
+  }
 })
 
 const getDataList = async () => {
@@ -90,6 +97,20 @@ const getDataList = async () => {
           plain: true,
         })
       }
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const getCategoryList = async () => {
+  try {
+    const cateRes = await request({
+      url: '/api/category/list',
+      method: 'GET'
+    })
+    if (cateRes.code === 0) {
+      store.setCategory(cateRes.data)
     }
   } catch (err) {
     console.error(err)
@@ -118,7 +139,7 @@ const nextPage = () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .user {
   .head-img {
     width: 80%;

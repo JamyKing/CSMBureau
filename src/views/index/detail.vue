@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import {ref, inject, onMounted} from 'vue'
+import {ref, inject, onBeforeMount} from 'vue'
 import {useRoute} from 'vue-router'
 
 const request = inject('$request')
@@ -40,7 +40,7 @@ const blogDetail = ref({
   htmlRender: ''
 })
 
-onMounted(() => {
+onBeforeMount(() => {
   loadDetail()
 })
 
