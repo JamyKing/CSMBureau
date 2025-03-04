@@ -38,7 +38,7 @@ onBeforeMount(() => {
 onActivated(() => {
   console.log('activated')
   if (!store.isMobile && videoControl.paused) {
-    videoControl.play()
+    videoControl.value.play()
   }
 })
 

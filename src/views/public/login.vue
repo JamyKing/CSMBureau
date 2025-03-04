@@ -1,42 +1,47 @@
 <template>
   <div>
-    <atlas-screen atlasHeight="100%" :sayingShow="false" />
-    <el-row type="flex" justify="center" class="login-row">
-      <el-col class="login-form animated fadeInDownBig" :xl="{span: 8}" :lg="{span: 11}" :md="{span: 14}"
-              :sm="{span: 18}" :xs="{span: 22}">
-        <el-form :model="loginForm" :rules="rules" ref="loginDom" size="default" label-width="100px"
-                 @keyup.enter.native="toLogin">
-          <el-row>
-            <el-col :span="24" class="u-f-auto">
-              <el-avatar class="head" :src="headImg"></el-avatar>
-            </el-col>
-            <el-col :span="20">
-              <el-form-item label="用户名" prop="username">
-                <el-input v-model="loginForm.username" clearable placeholder="请输入登录用户名"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="20">
-              <el-form-item label="密码" prop="password">
-                <el-input v-model="loginForm.password" show-password clearable placeholder="请输入登录密码"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24" class="u-f-auto">
-              <slider-verify />
-            </el-col>
-            <el-col :span="24" class="u-f-auto">
-              <el-button @click="toLogin" class="login-btn" type="success" plain round>登 录</el-button>
-            </el-col>
-          </el-row>
-        </el-form>
-      </el-col>
-    </el-row>
+    <atlas-screen atlasHeight="100%" :sayingShow="false">
+      <el-row type="flex" justify="center" class="login-row">
+        <el-col class="login-form animated fadeInDownBig" :xl="{span: 8}" :lg="{span: 11}" :md="{span: 14}"
+                :sm="{span: 18}" :xs="{span: 22}">
+          <el-form :model="loginForm" :rules="rules" ref="loginDom" size="default" label-width="100px"
+                   @keyup.enter.native="toLogin">
+            <el-row>
+              <el-col :span="24" class="u-f-auto">
+                <el-avatar class="head" :src="headImg"></el-avatar>
+              </el-col>
+              <el-col :span="20">
+                <el-form-item label="用户名" prop="username">
+                  <el-input v-model="loginForm.username" clearable placeholder="请输入登录用户名"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="20">
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="loginForm.password" show-password clearable placeholder="请输入登录密码"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="24" class="u-f-auto">
+                <mi-captcha
+                  theme-color="#2F9688"
+                  border-color="#2F9688"
+                  box-shadow-color="#2F9688"
+                  @success="verifySuccess"
+                />
+              </el-col>
+              <el-col :span="24" class="u-f-auto">
+                <el-button @click="toLogin" class="login-btn" type="success" plain round>登 录</el-button>
+              </el-col>
+            </el-row>
+          </el-form>
+        </el-col>
+      </el-row>
+    </atlas-screen>/
   </div>
 </template>
 
 <script setup>
 import {ref, reactive, inject, useTemplateRef, onActivated} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
-import SliderVerify from '@/components/SliderVerify/index.vue'
 import headImg from '@/assets/images/head.jpg'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -65,8 +70,13 @@ onActivated(() => {
   console.log('onBeforeMount')
 })
 
+const verifySuccess = (e) => {
+  console.log('verifySuccess', e)
+  verifyCode.value = true
+}
+
 const toLogin = () => {
-  loginDom.validate(async (valid) => {
+  loginDom.value.validate(async (valid) => {
     if (valid && verifyCode) {
       try {
         const {code, data} = await request({

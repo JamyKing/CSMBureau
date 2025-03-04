@@ -29,6 +29,11 @@ let router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/views/public/login.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/admin/admin.vue')
     }
   ],
 })
