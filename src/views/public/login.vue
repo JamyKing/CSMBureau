@@ -4,11 +4,12 @@
       <el-row type="flex" justify="center" class="login-row">
         <el-col class="login-form animated fadeInDownBig" :xl="{span: 8}" :lg="{span: 11}" :md="{span: 14}"
                 :sm="{span: 18}" :xs="{span: 22}">
-          <el-form :model="loginForm" :rules="rules" ref="loginDom" size="default" label-width="100px"
-                   @keyup.enter.native="toLogin">
+          <el-form :model="loginForm" :rules="rules" ref="loginDom" label-width="100px" @keyup.enter.native="toLogin">
             <el-row>
-              <el-col :span="24" class="u-f-auto">
-                <el-avatar class="head" :src="headImg"></el-avatar>
+              <el-col>
+                <div class="u-f-auto">
+                  <el-avatar class="head" :src="headImg"></el-avatar>
+                </div>
               </el-col>
               <el-col :span="20">
                 <el-form-item label="用户名" prop="username">
@@ -20,29 +21,36 @@
                   <el-input v-model="loginForm.password" show-password clearable placeholder="请输入登录密码"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="24" class="u-f-auto">
-                <mi-captcha
-                  theme-color="#2F9688"
-                  border-color="#2F9688"
-                  box-shadow-color="#2F9688"
-                  @success="verifySuccess"
-                />
+              <el-col>
+                <div class="u-f-auto">
+                  <slide-verify
+                    ref="verifyRef"
+                    slider-text="向右滑动 =>"
+                    @success="verifySuccess"
+                    @refresh="verifyFail"
+                    @fail="verifyFail"
+                  />
+                </div>
               </el-col>
-              <el-col :span="24" class="u-f-auto">
-                <el-button @click="toLogin" class="login-btn" type="success" plain round>登 录</el-button>
+              <el-col>
+                <div class="u-f-auto">
+                  <el-button @click="toLogin" class="login-btn" type="success" plain round>登 录</el-button>
+                </div>
               </el-col>
             </el-row>
           </el-form>
         </el-col>
       </el-row>
-    </atlas-screen>/
+    </atlas-screen>
   </div>
 </template>
 
 <script setup>
-import {ref, reactive, inject, useTemplateRef, onActivated} from 'vue'
+import {ref, reactive, inject, useTemplateRef} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import headImg from '@/assets/images/head.jpg'
+import SlideVerify from 'vue3-slide-verify'
+import "vue3-slide-verify/dist/style.css";
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
 
@@ -65,14 +73,15 @@ const rules = reactive({
 })
 
 const loginDom = useTemplateRef('loginDom')
-
-onActivated(() => {
-  console.log('onBeforeMount')
-})
+const verifyRef = useTemplateRef('verifyRef')
 
 const verifySuccess = (e) => {
   console.log('verifySuccess', e)
   verifyCode.value = true
+}
+
+const verifyFail = () => {
+  verifyCode.value = false
 }
 
 const toLogin = () => {
@@ -101,6 +110,8 @@ const toLogin = () => {
             type: 'error',
             plain: true,
           })
+          verifyCode.value = false
+          verifyRef.value.refresh()
         }
       } catch (err) {
         ElMessage({

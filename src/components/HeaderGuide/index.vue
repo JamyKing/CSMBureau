@@ -9,7 +9,7 @@
         <div @click="navTo('about')" class="guide-item u-f-auto">青玉案</div>
         <div v-if="store.hasLogin" @click="navTo('admin')" class="guide-item u-f-auto">临江仙</div>
         <div v-if="store.hasLogin" class="guide-item u-f-auto">
-          <el-avatar src="@/assets/images/head.jpg"></el-avatar>
+          <el-avatar :src="headImg"></el-avatar>
         </div>
         <div v-if="!store.hasLogin" @click="navTo('login')" class="guide-item u-f-auto">如梦令</div>
       </div>
@@ -23,6 +23,7 @@ import {useRouter} from 'vue-router'
 
 const store = inject('$store')
 const router = useRouter()
+import headImg from '@/assets/images/head.jpg'
 
 const navTo = (url) => {
   router.push({name: url})

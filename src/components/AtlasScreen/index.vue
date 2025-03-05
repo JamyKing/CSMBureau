@@ -30,14 +30,12 @@ const props = defineProps({
 const videoControl = useTemplateRef('videoBg')
 
 onBeforeMount(() => {
-  console.log('onMounted')
   if (store.spring.id === 0) {
     getAim()
   }
 })
 onActivated(() => {
-  console.log('activated')
-  if (!store.isMobile && videoControl.paused) {
+  if (!store.isMobile && videoControl.value.paused) {
     videoControl.value.play()
   }
 })

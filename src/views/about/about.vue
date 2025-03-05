@@ -1,7 +1,7 @@
 <template>
   <div class="u-f-col">
     <atlas-screen />
-    <el-row class="u-f-cer" style="margin-top: 20px">
+    <el-row class="u-f-cer" style="margin: 20px 0;">
       <el-col :xl="{span: 12}" :lg="{span: 15}" :md="{span: 17}" :sm="{span: 19}" :xs="{span: 22}" class="line-time">
         <el-skeleton :loading="loading" animated :rows="8">
           <el-timeline>

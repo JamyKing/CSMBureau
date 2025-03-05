@@ -2,14 +2,14 @@
   <header-guide />
     <router-view v-slot="{ Component, route }">
       <keep-alive include="index,about,admin">
-        <component :is="Component" :key="route.path" />
+        <component :is="Component" :key="route.path" :style="getHeight" />
       </keep-alive>
     </router-view>
   <footer-guide />
 </template>
 
 <script setup>
-import { inject, onBeforeMount, onMounted } from 'vue'
+import { inject, onBeforeMount, onMounted, computed } from 'vue'
 import { RouterView } from 'vue-router'
 import HeaderGuide from '@/components/HeaderGuide/index.vue'
 import FooterGuide from '@/components/FooterGuide/index.vue'
@@ -42,6 +42,8 @@ onMounted(() => {
     }
   }
 })
+
+const getHeight = computed(() => `min-height: ${(store.clientHeight - 220)}px;`)
 
 const loginVerify = async () => {
   try {
