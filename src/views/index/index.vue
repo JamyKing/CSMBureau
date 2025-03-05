@@ -25,9 +25,9 @@
           </div>
         </div>
         <div v-show="dataList.length > 0" class="u-f-jsb" style="padding: 0 10px;">
-          <el-button @click="prePage" :disabled="pageInfo.pageNo === 1" type="primary" plain icon="el-icon-arrow-left">上一页</el-button>
+          <el-button @click="prePage" :disabled="pageInfo.pageNo === 1" type="primary" plain :icon="ArrowLeft">上一页</el-button>
           <el-button @click="nextPage" :disabled="pageInfo.pageNo === totalPage" type="primary" plain>
-            下一页<i class="el-icon-arrow-right el-icon--right"></i>
+            下一页<el-icon class="el-icon--right"><ArrowRight /></el-icon>
           </el-button>
         </div>
       </el-col>
@@ -35,12 +35,12 @@
         <el-image class="head-img" :src="headImg"></el-image>
         <div class="tag-group">
           <el-tag
-              v-for="tag in store.category"
-              :key="tag.id"
-              :type="tag.type"
-              :effect="tag.name === pageInfo.categoryName ? 'dark' : 'plain'"
-              @click="tagSelected(tag.name)"
-              class="tags animated fadeInDown">
+            v-for="tag in store.category"
+            :key="tag.id"
+            :type="tag.type"
+            :effect="tag.name === pageInfo.categoryName ? 'dark' : 'plain'"
+            @click="tagSelected(tag.name)"
+            class="tags animated fadeInDown">
             {{ tag.name }}
           </el-tag>
           <!--全部标签-->
@@ -57,6 +57,7 @@ import {ref, reactive, inject, watch, computed, onBeforeMount} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
 import headImg from '@/assets/images/head.jpg'
 
 const store = inject('$store')

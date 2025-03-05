@@ -1,56 +1,47 @@
 <template>
   <div class="u-f-col">
-    <div style="margin-top: 20px;"></div>
-    <el-row :gutter="20" class="data-list">
-      <el-form :model="filterForm" ref="filterRef" label-width="40px" @keyup.enter.native="getDataList()">
-        <el-col :span="6">
-          <el-form-item label="标题" prop="title">
-            <el-input v-model="filterForm.title" placeholder="文章标题" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="状态" prop="state">
-            <el-select v-model="filterForm.state" placeholder="文章状态">
-              <el-option
-                v-for="item in statusOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="排序" prop="sort">
-            <el-select v-model="filterForm.sort" placeholder="">
-              <el-option
-                v-for="item in sortOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="时间" prop="createTime">
-            <el-date-picker
-              v-model="filterForm.createTime"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="选择时间">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-button @click="getDataList" size="small" icon="el-icon-search">搜索</el-button>
-          <el-button @click="reset" size="small">重置</el-button>
-          <el-button @click="create" type="primary" size="small" icon="el-icon-edit">写文章</el-button>
-          <el-button @click="timeVisible = true" type="primary" size="small" icon="el-icon-edit">时间轴</el-button>
-          <el-button @click="tagVisible = true" type="primary" size="small" icon="el-icon-edit">分类标签</el-button>
-        </el-col>
+    <div class="top-filter">
+      <el-form :model="filterForm" ref="filterRef" inline label-width="40px" @keyup.enter.native="getDataList()">
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="filterForm.title" placeholder="文章标题" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="状态" prop="state">
+          <el-select v-model="filterForm.state" placeholder="文章状态" style="width: 120px;">
+            <el-option
+              v-for="item in statusOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="排序" prop="sort">
+          <el-select v-model="filterForm.sort" placeholder="" style="width: 120px;">
+            <el-option
+              v-for="item in sortOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="时间" prop="createTime">
+          <el-date-picker
+            v-model="filterForm.createTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="getDataList" :icon="Search">搜索</el-button>
+          <el-button @click="reset">重置</el-button>
+          <el-button @click="create" type="primary" :icon="Edit">写文章</el-button>
+          <el-button @click="timeVisible = true" type="primary" :icon="EditPen">时间轴</el-button>
+          <el-button @click="tagVisible = true" type="primary" :icon="Discount">分类标签</el-button>
+        </el-form-item>
       </el-form>
-    </el-row>
+    </div>
     <el-row :gutter="20" class="data-list">
       <el-col :span="24">
         <el-table
@@ -91,24 +82,27 @@
       </el-col>
       <el-col :span="24" style="margin: 20px;">
         <el-pagination
-            @size-change="sizeChangeHandle"
-            @current-change="currentChangeHandle"
-            :current-page="pageInfo.pageNo"
-            :page-sizes="[10, 30, 50, 100, 200]"
-            :page-size="pageInfo.pageSize"
-            :total="totalCount"
-            layout="total, sizes, prev, pager, next, jumper">
+          @size-change="sizeChangeHandle"
+          @current-change="currentChangeHandle"
+          :current-page="pageInfo.pageNo"
+          :page-sizes="[10, 30, 50, 100, 200]"
+          :page-size="pageInfo.pageSize"
+          :total="totalCount"
+          layout="total, sizes, prev, pager, next, jumper">
         </el-pagination>
       </el-col>
     </el-row>
-<!--    <tag-house v-if="hasLogin" v-model="tagVisible"></tag-house>-->
-<!--    <time-line v-if="hasLogin" v-model="timeVisible"></time-line>-->
+    <time-line v-model="timeVisible" />
+    <tag-house v-model="tagVisible" />
   </div>
 </template>
 
 <script setup>
 import {ref, reactive, inject, nextTick, useTemplateRef, onActivated} from 'vue'
 import {useRouter} from 'vue-router'
+import TimeLine from './components/TimeLine.vue'
+import TagHouse from './components/TagHouse.vue'
+import { Search, Edit, EditPen, Discount } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const store = inject('$store')
@@ -273,6 +267,11 @@ const currentChangeHandle = (val) => {
 </script>
 
 <style scoped>
+.top-filter {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 30px;
+}
 .data-list {
   padding: 0 30px;
   margin: 0 !important;

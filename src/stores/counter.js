@@ -11,6 +11,7 @@ export const useCounterStore = defineStore('counter', () => {
   })
   const category = ref([])
   const isMobile = ref(false)
+  const clientHeight = ref(600)
 
   function setStore(data) {
     spring.value = data.spring
@@ -34,6 +35,9 @@ export const useCounterStore = defineStore('counter', () => {
   function setMobile(data) {
     isMobile.value = data
   }
+  function setHeight(data) {
+    clientHeight.value = data
+  }
 
   const getHasLogin = computed(() => hasLogin.value)
   // const doubleCount = computed(() => count.value * 2)
@@ -44,12 +48,14 @@ export const useCounterStore = defineStore('counter', () => {
     spring,
     category,
     isMobile,
+    clientHeight,
     setStore,
     login,
     logout,
     setCategory,
     setSpring,
     setMobile,
+    setHeight,
     getHasLogin
   }
 })

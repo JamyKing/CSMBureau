@@ -34,6 +34,11 @@ let router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/admin/admin.vue')
+    },
+    {
+      path: '/creation',
+      name: 'creation',
+      component: () => import('@/views/admin/creation.vue')
     }
   ],
 })

@@ -1,10 +1,10 @@
 <template>
-  <div class="atlas-screen" :style="[{height: atlasHeight}]">
+  <div class="atlas-screen" :style="[{height: props.atlasHeight}]">
     <el-image v-if="store.isMobile" class="bg-img" fit="cover" src="http://www.jianking.vip/resource/RainDate/night.jpg" lazy></el-image>
     <video v-if="!store.isMobile" ref="videoBg" class="bg-video" autoplay muted loop>
       <source class="source-box" src="http://www.jianking.vip/resource/RainDate/night.mp4" type="video/mp4" />
     </video>
-    <div v-if="sayingShow" class="saying u-f-cer animated flipInX">
+    <div v-if="props.sayingShow" class="saying u-f-cer animated flipInX">
       <h1>{{ store.spring.feature }}</h1>
       <h3 v-if="store.spring.extract !== '无'">-《{{ store.spring.extract }}》</h3>
     </div>

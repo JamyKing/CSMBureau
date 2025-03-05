@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, inject } from 'vue'
+import { inject, onBeforeMount, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import HeaderGuide from '@/components/HeaderGuide/index.vue'
 import FooterGuide from '@/components/FooterGuide/index.vue'
@@ -32,6 +32,15 @@ onBeforeMount(() => {
     }))
   })
   loginVerify()
+})
+
+onMounted(() => {
+  store.setHeight(document.documentElement['clientHeight'])
+  window.onresize = () => {
+    if (document.documentElement['clientHeight'] > store.clientHeight) {
+      store.setHeight(document.documentElement['clientHeight'])
+    }
+  }
 })
 
 const loginVerify = async () => {
