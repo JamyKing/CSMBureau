@@ -1,11 +1,10 @@
 <template>
-  <div class="u-f-col">
+  <div class="">
     <atlas-screen />
-    <el-row :gutter="20" type="flex" justify="center" style="margin: 20px 0;">
-      <el-col :xl="{span: 10}" :lg="{span: 12}" :md="{span: 14}" :sm="{span: 16}" :xs="{span: 17}"
-              style="background: white; padding: 10px; box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+    <div class="index-content">
+      <div class="u-f-col">
         <div class="data-list">
-          <div v-for="(item, index) in dataList" :key="index" @click="getDetail(item)"
+          <el-card v-for="(item, index) in dataList" :key="index" shadow="hover" @click="getDetail(item)"
                class="list-item animated fadeIn">
             <h2 class="title">{{ item.title }}</h2>
             <div v-if="item.category">
@@ -22,7 +21,7 @@
               </div>
             </div>
             <div class="hr"></div>
-          </div>
+          </el-card>
         </div>
         <div v-show="dataList.length > 0" class="u-f-jsb" style="padding: 0 10px;">
           <el-button @click="prePage" :disabled="pageInfo.pageNo === 1" type="primary" plain :icon="ArrowLeft">上一页</el-button>
@@ -30,8 +29,8 @@
             下一页<el-icon class="el-icon--right"><ArrowRight /></el-icon>
           </el-button>
         </div>
-      </el-col>
-      <el-col class="user u-f-col" :xl="{span: 4}" :lg="{span: 4}" :md="{span: 5}" :sm="{span: 5}" :xs="{span: 6}">
+      </div>
+      <div class="index-right u-f-col">
         <el-image class="head-img" :src="headImg"></el-image>
         <div class="tag-group">
           <el-tag
@@ -46,14 +45,14 @@
           <!--全部标签-->
           <el-tag @click="tagSelected('')" type="info" effect="plain" class="tags animated fadeInDown">ALL</el-tag>
         </div>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
     <el-backtop :right="100" :bottom="100" />
   </div>
 </template>
 
 <script setup>
-import {ref, reactive, inject, watch, computed, onBeforeMount} from 'vue'
+import {ref, reactive, inject, onBeforeMount} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -74,7 +73,6 @@ const totalPage = ref(1)
 
 onBeforeMount(() => {
   console.log('Index Mounted')
-  // TODO：1.添加分类标签 默认为primary 2.新增文章时选择标签 默认为primary
   getDataList()
   if (store.category.length === 0) {
     getCategoryList()
@@ -141,9 +139,16 @@ const nextPage = () => {
 </script>
 
 <style lang="scss" scoped>
-.user {
+.index-content {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.index-right {
+  width: 320px;
   .head-img {
-    width: 80%;
+    width: 260px;
+    height: 260px;
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -165,15 +170,16 @@ const nextPage = () => {
 }
 
 .data-group {
-  background: white;
+  //background: white;
   padding: 10px;
 }
 
 .data-list {
+  width: 800px;
   min-height: 600px;
 
   .list-item {
-    padding: 0 20px;
+    margin-bottom: 20px;
 
     &:hover {
       cursor: pointer;
@@ -182,7 +188,7 @@ const nextPage = () => {
     .title {
       font-size: 26px;
       line-height: 1.3;
-      margin: 30px 0 10px;
+      margin: 10px 0;
     }
 
     .sub-title {
@@ -218,7 +224,6 @@ const nextPage = () => {
       height: 0;
       margin: 20px 0;
       border: 0;
-      border-top: 1px solid #eeeeee;
     }
   }
 }

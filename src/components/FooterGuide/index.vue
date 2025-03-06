@@ -41,7 +41,7 @@ const year = computed(() => new Date().getFullYear())
 .foot {
   width: 100%;
   height: 160px;
-  background: #3b3b3b;
+  background: #474b42;
 }
 
 .links {

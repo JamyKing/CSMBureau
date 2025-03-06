@@ -1,9 +1,13 @@
 <template>
-  <el-row class="guide" type="flex" justify="space-between">
-    <el-col :xl="{span: 2}" :lg="{span: 3}" :md="{span: 4}" :sm="{span: 5}" :xs="{span: 6}">
-      <div class="guide-title u-f-auto">棋剑乐府</div>
+  <el-row class="guide" type="flex" justify="space-around">
+    <el-col :span="3">
+      <div class="u-f">
+        <div class="guide-title u-f-auto">棋剑乐府</div>
+        <el-switch v-model="switchValue" :active-action-icon="Moon" :inactive-action-icon="Sunny" @change="switchThemes()" />
+      </div>
     </el-col>
-    <el-col :xl="{span: 5, pull: 1}" :lg="{span: 9}" :md="{span: 12}" :sm="{span: 15}" :xs="{span: 18}">
+    <el-col :span="2"></el-col>
+    <el-col :span="6">
       <div class="u-f-jsb">
         <div @click="navTo('index')" class="guide-item u-f-auto">沁园春</div>
         <div @click="navTo('about')" class="guide-item u-f-auto">青玉案</div>
@@ -18,15 +22,25 @@
 </template>
 
 <script setup>
-import {inject} from 'vue'
+import {ref, inject} from 'vue'
 import {useRouter} from 'vue-router'
+import {useDark, useToggle} from '@vueuse/core'
+import { Moon, Sunny } from '@element-plus/icons-vue'
+import headImg from '@/assets/images/head.jpg'
 
 const store = inject('$store')
 const router = useRouter()
-import headImg from '@/assets/images/head.jpg'
+const isDark = useDark()
+
+const switchValue = ref(false)
 
 const navTo = (url) => {
   router.push({name: url})
+}
+
+const switchThemes = () => {
+  const toggleDark = useToggle(isDark)
+  console.log(toggleDark())
 }
 </script>
 
@@ -35,8 +49,8 @@ const navTo = (url) => {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #cfcfcf;
-  opacity: 0.7;
+  background: #92977e;
+  //opacity: 0.7;
 
   .guide-title {
     width: 120px;

@@ -3,6 +3,7 @@
     <el-image v-if="store.isMobile" class="bg-img" fit="cover" src="http://www.jianking.vip/resource/RainDate/night.jpg" lazy></el-image>
     <video v-if="!store.isMobile" ref="videoBg" class="bg-video" autoplay muted loop>
       <source class="source-box" src="http://www.jianking.vip/resource/RainDate/night.mp4" type="video/mp4" />
+<!--      <source class="source-box" src="http://www.jianking.vip/resource/RainDate/lnk.mp4" type="video/mp4" />-->
     </video>
     <div v-if="props.sayingShow" class="saying u-f-cer animated flipInX">
       <h1>{{ store.spring.feature }}</h1>
@@ -13,14 +14,14 @@
 </template>
 
 <script setup>
-import {ref, reactive, inject, useTemplateRef, onBeforeMount, onActivated} from 'vue'
+import {inject, useTemplateRef, onBeforeMount, onActivated} from 'vue'
 
 const store = inject('$store')
 const request = inject('$request')
 const props = defineProps({
   atlasHeight: {
     type: String,
-    default: '560px'
+    default: '600px'
   },
   sayingShow: {
     type: Boolean,
@@ -58,7 +59,7 @@ const getAim = async () => {
 <style lang="scss" scoped>
 .atlas-screen {
   position: relative;
-  margin-top: -60px;
+  //margin-top: -60px;
 
   .bg-img {
     width: 100%;
@@ -67,7 +68,7 @@ const getAim = async () => {
   .bg-video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: none;
     .source-box {
       min-width: 100%;
       min-height: 100%;

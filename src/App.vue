@@ -1,10 +1,10 @@
 <template>
   <header-guide />
-    <router-view v-slot="{ Component, route }">
-      <keep-alive include="index,about,admin">
-        <component :is="Component" :key="route.path" :style="getHeight" />
-      </keep-alive>
-    </router-view>
+  <router-view v-slot="{ Component, route }">
+    <keep-alive include="index,about,admin">
+      <component :is="Component" :key="route.path" :style="getHeight" />
+    </keep-alive>
+  </router-view>
   <footer-guide />
 </template>
 
