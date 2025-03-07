@@ -86,7 +86,7 @@ const verifyFail = () => {
 
 const toLogin = () => {
   loginDom.value.validate(async (valid) => {
-    if (valid && verifyCode) {
+    if (valid && verifyCode.value) {
       try {
         const {code, data} = await request({
           url: '/api/user/login',
@@ -140,7 +140,7 @@ const toLogin = () => {
 }
 
 .login-form {
-  background: #e2e2e2;
+  background: #474b42;
   border-radius: 10px;
 }
 

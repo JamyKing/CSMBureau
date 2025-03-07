@@ -3,7 +3,14 @@
     <el-col :span="3">
       <div class="u-f">
         <div class="guide-title u-f-auto">棋剑乐府</div>
-        <el-switch v-model="switchValue" :active-action-icon="Moon" :inactive-action-icon="Sunny" @change="switchThemes()" />
+        <div class="guide-title u-f-auto">
+          <el-switch
+            v-model="isDark"
+            :active-action-icon="Moon"
+            :inactive-action-icon="Sunny"
+            @change="switchThemes()"
+          />
+        </div>
       </div>
     </el-col>
     <el-col :span="2"></el-col>
@@ -22,7 +29,7 @@
 </template>
 
 <script setup>
-import {ref, inject} from 'vue'
+import {inject, onBeforeMount} from 'vue'
 import {useRouter} from 'vue-router'
 import {useDark, useToggle} from '@vueuse/core'
 import { Moon, Sunny } from '@element-plus/icons-vue'
@@ -32,15 +39,26 @@ const store = inject('$store')
 const router = useRouter()
 const isDark = useDark()
 
-const switchValue = ref(false)
+onBeforeMount(() => {
+  const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
+  setMarkdownTheme(themeMedia.matches)
+  themeMedia.addEventListener('change', (e) => {
+    console.log(e.matches ? "深色模式" : "浅色模式")
+    setMarkdownTheme(e.matches)
+  })
+})
 
 const navTo = (url) => {
   router.push({name: url})
 }
 
 const switchThemes = () => {
-  const toggleDark = useToggle(isDark)
-  console.log(toggleDark())
+  useToggle(isDark)
+  setMarkdownTheme(isDark.value)
+}
+
+const setMarkdownTheme = (dark) => {
+  document.body.setAttribute('data-theme', dark ? 'dark' : 'light')
 }
 </script>
 
@@ -49,14 +67,14 @@ const switchThemes = () => {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #92977e;
-  //opacity: 0.7;
+  background: #474b42;
+  opacity: 0.8;
 
   .guide-title {
     width: 120px;
     height: 60px;
     font-size: 26px;
-    color: #000000;
+    color: #FFFFFF;
   }
 
   .guide-item {
@@ -64,11 +82,11 @@ const switchThemes = () => {
     height: 60px;
     font-size: 26px;
     font-family: cursive;
-    color: #000000;
+    color: #FFFFFF;
 
     &:hover {
       cursor: pointer;
-      color: #414141;
+      color: #7f7522;
     }
   }
 }

@@ -13,12 +13,6 @@ ul,li,ol{
   list-style-type: none;
 }
 
-.markdown-body img {
-  border: 1px solid #e2e2e2;
-  padding: 4px;
-  border-radius: 4px;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

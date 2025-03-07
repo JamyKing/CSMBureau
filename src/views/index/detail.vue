@@ -13,7 +13,7 @@
             <div class="time">
               <div>{{ blogDetail.createTime }}</div>
               <div class="item-view">
-                <i class="el-icon-view"></i>
+                <el-icon><View /></el-icon>
                 <p class="view-num">{{ blogDetail.clickViews + 1 }}</p>
               </div>
             </div>
@@ -28,6 +28,8 @@
 <script setup>
 import {ref, inject, onBeforeMount} from 'vue'
 import {useRoute} from 'vue-router'
+import { View } from '@element-plus/icons-vue'
+import '@/assets/css/github-markdown.css'
 
 const request = inject('$request')
 const route = useRoute()
@@ -62,15 +64,15 @@ const loadDetail = async () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
-  margin-bottom: 10px;
+  font-size: 36px;
 }
 
 .time {
   display: flex;
   align-items: center;
-  margin: 5px 10px 20px;
+  margin: 20px 10px;
 }
 .item-view {
   display: flex;
@@ -81,5 +83,11 @@ const loadDetail = async () => {
     font-size: 15px;
     margin-left: 2px;
   }
+}
+
+.markdown-body img {
+  border: 1px solid #e2e2e2;
+  padding: 4px;
+  border-radius: 4px;
 }
 </style>

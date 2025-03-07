@@ -16,7 +16,7 @@
             <div class="list-bottom">
               <p class="meta">{{ item.createTime }}</p>
               <div v-if="item.clickViews" class="item-view">
-                <i class="el-icon-view"></i>
+                <el-icon><View /></el-icon>
                 <p class="view-num">{{ item.clickViews }}</p>
               </div>
             </div>
@@ -56,7 +56,7 @@ import {ref, reactive, inject, onBeforeMount} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
+import { View, ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
 import headImg from '@/assets/images/head.jpg'
 
 const store = inject('$store')
