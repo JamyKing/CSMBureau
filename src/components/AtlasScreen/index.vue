@@ -59,8 +59,8 @@ const getAim = async () => {
 <style lang="scss" scoped>
 .atlas-screen {
   position: relative;
-  font-size: 0;
   margin-top: -60px;
+  font-size: 0;
 
   .bg-img {
     width: 100%;
@@ -81,7 +81,7 @@ const getAim = async () => {
   .saying {
     width: 100%;
     position: absolute;
-    bottom: 40%;
+    bottom: 36%;
 
     h1 {
       font-size: 36px;
@@ -93,6 +93,7 @@ const getAim = async () => {
     }
 
     h3 {
+      font-size: 20px;
       color: white;
       font-family: cursive;
     }
