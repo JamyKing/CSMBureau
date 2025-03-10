@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import {ref, reactive, inject, useTemplateRef} from 'vue'
+import {ref, reactive, inject, useTemplateRef, onBeforeMount} from 'vue'
 import AtlasScreen from '@/components/AtlasScreen/index.vue'
 import headImg from '@/assets/images/head.jpg'
 import SlideVerify from 'vue3-slide-verify'
@@ -75,8 +75,11 @@ const rules = reactive({
 const loginDom = useTemplateRef('loginDom')
 const verifyRef = useTemplateRef('verifyRef')
 
+onBeforeMount(() => {
+  store.logout()
+})
+
 const verifySuccess = (e) => {
-  console.log('verifySuccess', e)
   verifyCode.value = true
 }
 

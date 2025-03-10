@@ -1,6 +1,6 @@
 <template>
   <el-row class="guide" type="flex" justify="space-around">
-    <el-col :span="3">
+    <el-col :span="4">
       <div class="u-f">
         <div class="guide-title u-f-auto">棋剑乐府</div>
         <div class="guide-title u-f-auto">
@@ -43,7 +43,6 @@ onBeforeMount(() => {
   const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
   setMarkdownTheme(themeMedia.matches)
   themeMedia.addEventListener('change', (e) => {
-    console.log(e.matches ? "深色模式" : "浅色模式")
     setMarkdownTheme(e.matches)
   })
 })

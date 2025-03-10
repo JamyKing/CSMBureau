@@ -1,6 +1,6 @@
 import axios from 'axios'
-// import { useRouter } from 'vue-router'
-// const router = useRouter()
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const http = axios.create({
   timeout: 1000 * 30,
@@ -26,7 +26,7 @@ const http = axios.create({
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, 未登录
     // store.logout()
-    // router.push({path: '/login'})
+    router.push({path: '/login'})
   }
   return response
 }, error => {

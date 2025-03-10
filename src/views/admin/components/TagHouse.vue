@@ -75,7 +75,6 @@ const options = ref([
 const saveTagInput = useTemplateRef('saveTagInput')
 
 const showInput = async () => {
-  console.log('categoryList', categoryList.value)
   inputVisible.value = true
   await nextTick()
   saveTagInput.value.focus()
