@@ -41,7 +41,8 @@ const isDark = useDark()
 
 onBeforeMount(() => {
   const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
-  setMarkdownTheme(themeMedia.matches)
+  // console.log('themeMedia', themeMedia.matches)
+  setMarkdownTheme(isDark.value)
   themeMedia.addEventListener('change', (e) => {
     setMarkdownTheme(e.matches)
   })
