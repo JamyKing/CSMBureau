@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Index from '@/views/index/index.vue'
-import Detail from '@/views/index/detail.vue'
-import About from '@/views/about/about.vue'
+// import Index from '@/views/index/index.vue'
+// import Detail from '@/views/index/detail.vue'
+// import About from '@/views/about/about.vue'
 
 let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,12 +13,12 @@ let router = createRouter({
     {
       path: '/index',
       name: 'index',
-      component: Index
+      component: () => import('@/views/index/index.vue')
     },
     {
       path: '/detail',
       name: 'detail',
-      component: Detail
+      component: () => import('@/views/index/detail.vue')
     },
     {
       path: '/about',
