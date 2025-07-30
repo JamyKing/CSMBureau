@@ -173,7 +173,7 @@ const submit = () => {
         const {code} = await request({
           url: `/api/blog/${id.value ? 'update' : 'new'}`,
           method: 'POST',
-          data: { id, ...dataForm }
+          data: { id, ...dataForm.value }
         })
         if (code === 0) {
           ElMessage({
