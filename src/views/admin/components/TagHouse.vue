@@ -81,11 +81,11 @@ const showInput = async () => {
 }
 
 const inputConfirm = async () => {
-  if (inputValue) {
+  if (inputValue.value) {
     let num = randomNum(1, 5)
     const subForm = {
       id: null,
-      name: inputValue,
+      name: inputValue.value,
       type: options.value[num - 1].value
     }
     try {
